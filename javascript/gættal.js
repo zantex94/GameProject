@@ -21,6 +21,8 @@ function checkValue(){
     console.log("uservalue is: " + userValue);
     let sumvalues = 10;
 
+    console.log(sumvalues);
+
     if(sumvalues === 0){
         result.innerHTML = "øv du fik ikke gættet rigtigt. Det endelige resultat er:  " + randomNumber;
 
@@ -35,11 +37,13 @@ function checkValue(){
     }else if (userValue < randomNumber){
         /* the value is higher than the genereated number */
         result.innerHTML = "Tallet er højre end ";
+        sumvalues -= sumvalues;
 
 
     }else{
         /* the value is less than the genereated number */
         result.innerHTML = "Tallet er lavere end ";
+        sumvalues -= sumvalues;
   
     }
 
