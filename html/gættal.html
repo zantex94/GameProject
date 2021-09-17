@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../stylesheet/style.css">
+    <script defer src="../javascript/main.js"></script>
+    <script defer src="../javascript/gættal.js"></script>
+    <title>Gæt et tal spil</title>
+</head>
+<body>
+    <ul id="navigationHeader"></ul>
+    <div class="pageStructure">
+        <div class="exerciseDiv">
+            <form id="formg" action="#">
+                <h1>Gæt et tal mellem 1- 1000</h1>
+                <br>
+                <input type="number" id="inputNumber" onfocus="this.value=''" name="number" placeholder="Mellem 1 - 10000" pattern="[0-9]{1000}" required>
+                <span id="resultInput"></span>
+                <br>
+                <br>
+                <button id="submitgæt" class="inputSend" type="submit" name="Gæt">Gæt tal</button>
+                <br>
+                <br>
+                <button name="Nyt spil" id="newGame">Nyt spil</button>  
+                <br>
+                <br>
+                <span>Score: </span>
+                <span id="scoreValue">5 træk</span>
+                <br>
+                <br>
+                <span>Tid: </span>
+                <span id="timePlayed">00.12.78</span>
+                <br>
+                <br>
+                <span>Spiller: </span>
+                <span id="playerName">René Seebach</span>
+            </form>
+        </div>
+       
+    </div>
+    <footer>
+        ©game, 2021
+    </footer>
+</body>
+</html>
