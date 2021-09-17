@@ -1,7 +1,7 @@
 var randomNumber = Math.floor(Math.random() * 1000 + 1);
 /* this function starts a game */
 function newGame(){
-   
+    let sumvalues = 10;
     let date = new Date()
     var howMany = Number(prompt('How many players?'));
     var playerName = String(prompt('Players Name'));
@@ -10,6 +10,8 @@ function newGame(){
     console.log(playerName);
   
 }
+
+
 /* a function that checks the value of a player */
 function checkValue(){
     console.log("Check value: " + randomNumber);
@@ -19,7 +21,7 @@ function checkValue(){
     let timePlayed = $('timePlayed');
     console.log("random number is: " + randomNumber);
     console.log("uservalue is: " + userValue);
-    let sumvalues = 10;
+
 
     console.log(sumvalues);
 
