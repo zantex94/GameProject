@@ -17,6 +17,11 @@ html,body{
     padding: 0.5%;
     background-color: lightskyblue;
     color: white;
+    margin: 2%;
+  }
+  button:hover{
+    color: black;
+    cursor: pointer;
   }
   
   /* holds the header navigation */
@@ -72,5 +77,18 @@ html,body{
       color:red; 
       border:1px solid red;
     }
+    /* css for gætettal*/
+    .divContentCenter{
+      display: flex;
+      justify-content: center;
+    }
+    .divContentStart{
+      display: flex;
+      justify-content: start;
+    }
+    .spanContent{
+      margin-left: 0.5%;
+    }
+
  
   
