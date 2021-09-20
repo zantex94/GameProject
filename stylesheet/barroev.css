@@ -1,0 +1,23 @@
+#board{
+    position: absolute;
+    top: 46px;
+    left: 0px;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100%;
+
+}
+#board .diceContainer{
+    background: white;
+    border: 2px solid red;
+    width: 100%;
+    min-height: 50%;
+}
+#board .playerContainer{
+    border: 2px solid blue;
+    width: 100%;
+    min-height: 50%;
+    background: white;
+}

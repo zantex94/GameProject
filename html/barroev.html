@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../stylesheet/style.css">
+    <link rel="stylesheet" href="../stylesheet/barroev.css">
+    <script defer src="../javascript/main.js"></script>
+    <script defer src="../javascript/barrøv.js"></script>
+    <title>Bar røv spil</title>
+</head>
+<body>
+    <ul id="navigationHeader"></ul>
+    <div class="pageStructure">
+        <input type="text" name="player" placeholder="playername" id="player">
+        <button id="addPlayer">add player</button>
+        <br><br>
+
+        <input type="number" name="maxpoints" placeholder="max points" id="maxpoints">
+        <br><br>
+        
+        <select name="diceAmount" id="diceAmount">
+            <option value="5">5 dices</option>
+            <option value="6">6 dices</option>
+        </select>
+       <div>
+           <ul id="playersList">
+
+           </ul>
+       </div>
+       <button id="startGame">start game</button>
+    </div>
+    <footer>
+        ©game, 2021
+    </footer>
+</body>
+</html>
