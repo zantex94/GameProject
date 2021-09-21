@@ -1,6 +1,7 @@
 
 'use strict'
 /* need to get quesswins and done to work */
+$('submitgæt').disabled = true;
 let randomNumberHolder = 0;
 let isWinner = "false";
 let done = "false";
@@ -13,11 +14,11 @@ let sec =  0;
 let a = "0";
 let b = "0";
 let c = "0";
-let test = 0;
 
-  
-class Game{
+  /**************Guess number game**************************/
+class GuessNumberGame{
 
+    /* objects store two players*/
     Person = {
         name: "",
         randomNumber: 0,
@@ -36,8 +37,9 @@ class Game{
         done: "false"
     };
     
-  /* newGame starts a game */
+  /* newGame starts a game and sets the player */
     newGame(){
+        clearInterval(time);
     person = [];
     let result = $('resultInput');
     let playersName = $('playerName');
@@ -51,13 +53,18 @@ class Game{
     sec = 0;
     min = 0;
     hours = 0;
+     a = "0";
+     b = "0";
+     c = "0";
     done = "false";
     sumvalues = 10;
     let player1 = this.Person;
     let player2 = this.Person2;
+    /* first player */
         do{
             var howMany = Number(prompt('How many players?', 'max 2'));
         }while(howMany > 2 || howMany < 1)
+    /* second player */
    do{
     var playerName = String(prompt('Players Name'));
    }while(playerName === "null" || playerName === "")
@@ -65,14 +72,13 @@ class Game{
     player1.name = playerName;
     player1.randomNumber = this.generateRandomNumber();
     player1.sumValues = 10;
-    scoreValue.innerHTML = player1.sumValues;
-    player1.timeUsed = 0;
-    player1.isWinner = "false";
     player1.done = "false";
+    player1.timeUsed = 0;
+    scoreValue.innerHTML = player1.sumValues;
+    /* pushing object to person arrary*/
     person.push(this.Person);
     console.log(person);
     playersName.innerHTML = "" + person[0].name;
-
 
     if (howMany === 2) {
         do{
@@ -82,16 +88,15 @@ class Game{
         player2.name = playerNameSecond;
         player2.randomNumber = this.generateRandomNumber();
         player2.sumValues = 10;
-        player2.timeUsed = 0;
-        player2.isWinner = "false";
         player2.done = "false";
+        player2.timeUsed = 0;
+            /* pushing second object to person arrary*/
         person.push(this.Person2);
         }
-        timePlayed.innerHTML = "";
-        clearInterval(time);
         this.timer();
    
 }
+
 
 timer(){
 
@@ -130,7 +135,7 @@ checkWinner(){
     let timePlayed = $('timePlayed');
     clearInterval(time);    
     sec--
-    
+    /* sets player time used in a round. */
     if (person[0].done === "true" && person[0].timeUsed === 0) 
     {
         person[0].timeUsed =  a + hours + ":" + b + min + ":" + c + sec;
@@ -161,8 +166,6 @@ if (person.length > 1) {
         timePlayed.innerHTML = "";
         this.timer();
     }
-   
- 
 
 /*check winner of game by træk and time. if only one player display winner*/
 }else if (person[0].isWinner === "true" && person.length === 1) {
@@ -186,7 +189,7 @@ if (person.length > 1) {
 
 
 
-/* this checks the winner of both players*/
+/* checks the winner of both players*/
 if (person.length === 2) { 
 
 if (person[0].done === "true" && person[1].done === "true") {
@@ -238,6 +241,7 @@ if (person[0].done === "true" && person[1].done === "true") {
 
    /* checks if both used the same træk and guesses. Winner is beeing tracked by time used.*/ 
     if (person[0].sumValues === person[1].sumValues && person[0].isWinner === "true" && person[1].isWinner === "true") {
+        /* cheks if both træk and time is the same*/
         if (person[0].timeUsed === person[1].timeUsed) {
             window.alert("Uafgjort!");
         }else if (person[0].timeUsed < person[1].timeUsed) {
@@ -286,39 +290,36 @@ if (person[0].done === "true" && person[1].done === "true") {
         if(person[0].done === "false"){
             randomNumberHolder = person[0].randomNumber;
             person[0].sumValues = sumvalues;
-            isWinner = person[0].isWinner;
-            person[0].done = done;
+            // isWinner = person[0].isWinner;
+            // person[0].done = done;
             console.log(person[0]);
             console.log("player one in action");
 
         }else{
             randomNumberHolder = person[1].randomNumber;
             person[1].sumValues = sumvalues;
-            person[1].isWinner = isWinner;  
-            person[1].done = done;
+            // person[1].isWinner = isWinner;  
+            // person[1].done = done;
             console.log(person[1]);
             console.log("player second in action");
 
         }
     
 
-/* The if statement checks the value of a giving number from the user */
+/*checks the value of a giving number from the user */
     if(userValue === randomNumberHolder){
         /* there is a winner*/
         result.innerHTML = "Tillykke du gættede rigtigt ";
         scoreValue.innerHTML = " " + sumvalues;
         if (person[0].done === "false") {
-              // isWinner = "true";  
               person[0].sumValues -= 1;  
               person[0].isWinner = "true";  
               person[0].done = "true";  
               // done = "true";
-        }else{
-            // isWinner = "true";  
+        }else{ 
                 person[1].isWinner = "true";  
                 person[1].done = "true";  
                 person[1].sumValues -= 1;  
-                // done = "true";
         }
           
         this.checkWinner();
@@ -337,21 +338,20 @@ if (person[0].done === "true" && person[1].done === "true") {
         scoreValue.innerHTML = "" + sumvalues;
   
     }
+     /* the value is qeual 0 which means game over for the current user */
     if(sumvalues === 0){
         result.innerHTML = "Game over! Det rigtige resultat er:  " + randomNumberHolder;
         scoreValue.innerHTML = "" + sumvalues;
         if (person[0].done === "false") {
             person[0].done = "true";
             person[0].sumValues -= 1;  
-            // done = "true";
       }else{
 
             person[1].done = "true";  
             person[1].sumValues -= 1;  
 
       }
-        // person[0].done = "true";  
-        // done += "true";
+      window.alert("Game over! Det rigtige resultat er: " + randomNumberHolder)
         this.checkWinner();
     }
 
@@ -361,11 +361,11 @@ generateRandomNumber(){
 }
 }
 
-
+/* connection from button to GuessNumberGame */
 function doSomething () {
     let buttonFormNewGame = $("newGame");
     let buttonFormSubmit = $("submitgæt");
-    let b = new Game();
+    let b = new GuessNumberGame();
     buttonFormNewGame.addEventListener('click', function(event){
         event.preventDefault()
         b.newGame();
