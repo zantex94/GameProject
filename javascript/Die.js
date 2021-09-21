@@ -1,12 +1,26 @@
 'use strict'
 
+
+
+
+// Variables
 const dice              = [];
 const rollDiceButton    = document.getElementById('rollDice');
+let getScore            = 0;
+let roll                = [];
 
+
+
+
+// Roll die
 function rollDie(sides) {
     return Math.floor(Math.random() * sides + 1);
 }
 
+
+
+
+// Die class object
 class Die {
 
     constructor(dice, sides) {
@@ -15,54 +29,46 @@ class Die {
         this.value  = 0;
     }
 
+    // Roll method
     roll() {
-        //return this.value = Math.floor(Math.random() * this.sides + 1)
         return this.value = rollDie(this.sides);
     }
 
 }
 
-for (let i = 0; i < 6; i++) {
+
+
+
+// Create selected amount of dice
+for (let i = 0; i < 6 /* replace with selected amount of dice */; i++) {
 
     let die = new Die(i, 6);
-    //die.roll();
     dice.push(die);
 
-    //if(die.roll() === 2)
-
-    //console.log(`Dice ${i + 1}: ${die.roll()}`);
 }
 
-let getScore = 0;
-let scores = [];
 
+
+
+// Roll dice
 function rollDice() {
-    scores = [];
+
+    // Empty past roll saved values
+    roll = [];
+
+    // Roll the dice
     for (let die of dice) {
-        die.roll();
-        /*if (die.value === 2 || die.value === 5) {
-            console.log(die.value);
-            console.log('This roll had 2s or 5s');
-        }
-        else {
-            console.log(die.value);
-            console.log('This roll had no 2s or 5s');            
-        }*/
-        
-        //console.log(die.value);
+        die.roll();        
     }
-    /*dice.forEach(element => {
-        console.log(`Dice: ${element.value}`);
-        scores.push(element.value);
-        
-    });*/
+    
+    // Save each rolled die value
     for (let i = 0; i < dice.length; i++) {
         console.log(`Dice ${i + 1}: ${dice[i].value}`);
-        scores.push(dice[i].value);
+        roll.push(dice[i].value);
     }
-    //console.log(scores.includes(2 || 5));
 
-    if (scores.includes(2 || 5)) {
+    // Check if the roll contained 2's or 5's
+    if (roll.includes(2 || 5)) {
         getScore = getScore;
         console.log(`Includes 2's or 5's (No points)`);
     }
@@ -72,37 +78,13 @@ function rollDice() {
         }
         console.log(`Doesn't include 2's or 5's (Gives points)`);
     }
-    console.log(scores);
 
-    console.log(`Total Points: ${getScore}`);
-    
-    /*for (let i = 0; i < dice.length; i++) {
-        console.log(`Dice ${i +1}: ${dice[i].value}`);
-        if (dice[i].value === 2 || dice[i].value === 5) {
-            //getScore = getScore - dice[i].value;
-            console.log(`Don't count this`);
-            
-
-        }
-        else {
-            //getScore = dice[i].value + dice[i].value;
-            //console.log(getScore);
-            //getScore = getScore + dice[i].value;
-            //console.log('test2')
-                        
-        }
-        //getScore = getScore + dice[i].value;
-        
-    }
-    console.log(`Total Score: ${getScore}`);
-    
-    /*dice.forEach(element => {
-        console.log(`Rolled: ${element.value}`);
-    });*/
-    //console.log(dice);
+    console.log(roll);
+    console.log(`Total Points: ${getScore}`);    
     
 }
 
-rollDiceButton.addEventListener('click', rollDice);
 
-//console.log(dice);
+
+
+rollDiceButton.addEventListener('click', rollDice);
