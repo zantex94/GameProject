@@ -4,7 +4,7 @@ let board           = document.createElement('section');
 let diceContainer   = document.createElement('div');
 let playerContainer = document.createElement('div');
 let playerScore     = document.createElement('div');
-let roll            = document.createElement('button');
+let rollBtn           = document.createElement('button');
 //let scoreboard      = document.createElement('div');
 /**********************************/
 
@@ -15,14 +15,14 @@ board.setAttribute('id', 'board');
 diceContainer.setAttribute('class', 'diceContainer');
 playerContainer.setAttribute('class', 'playerContainer');
 playerScore.setAttribute('class', 'playerScore');
-roll.setAttribute('class', 'rollBtn');
+rollBtn.setAttribute('class', 'rollBtn');
 //scoreboard.setAttribute('class', 'scoreboard');
 /**********************************/
 
 
 /******* WRITE INNERHTML *********/
 // write content to new HTML elements
-roll.innerHTML = 'Roll dice';
+rollBtn.innerHTML = 'Roll dice';
 /**********************************/
 
 
@@ -35,7 +35,7 @@ function createBoard(){
     board.append(diceContainer, playerContainer); 
     createPlayers();
     createDices();
-    diceContainer.append(roll);
+    diceContainer.append(rollBtn);
 }
 /**********************************/
 
