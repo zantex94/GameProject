@@ -6,7 +6,7 @@
 // Variables
 const dice              = [];
 const rollDiceButton    = document.getElementById('rollDice');
-let getScore            = 0;
+let score               = 0;
 let roll                = [];
 
 
@@ -69,18 +69,18 @@ function rollDice() {
 
     // Check if the roll contained 2's or 5's
     if (roll.includes(2 || 5)) {
-        getScore = getScore;
+        score = score;
         console.log(`Includes 2's or 5's (No points)`);
     }
     else {
         for (let i = 0; i < dice.length; i++) {
-            getScore = getScore + dice[i].value;
+            score = score + dice[i].value;
         }
         console.log(`Doesn't include 2's or 5's (Gives points)`);
     }
 
     console.log(roll);
-    console.log(`Total Points: ${getScore}`);    
+    console.log(`Total Points: ${score}`);    
     
 }
 
