@@ -36,7 +36,7 @@
                 </div>
                 <br>
                 <div class="divContentCenter">
-                <input type="number" id="inputNumber" onfocus="this.value=''" name="number" placeholder="Mellem 1 - 1000" pattern="[0-9]{1000}" required>
+                <input type="text" id="inputNumber" onfocus="this.value=''" name="number" placeholder="Mellem 1 - 1000" pattern="[0-9]{1000}" title="only from 1-1000" required>
             </div>
             <div class="divContentCenter">
                 <br>
@@ -44,7 +44,10 @@
                 <button name="Nyt spil" id="newGame">Nyt spil</button>  
                 <br>
                 <br>
-                    <button id="submitgæt" class="inputSend" type="submit" name="Gæt">Gæt tal</button>
+                <div id="submitGuessDiv" style="display: contents;">
+                   
+                </div>
+                    
                 <br>
             </div>
             </div>

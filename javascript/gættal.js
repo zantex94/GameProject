@@ -1,7 +1,12 @@
 
 'use strict'
-/* need to get quesswins and done to work */
-$('submitgæt').disabled = true;
+/* Keeps all global variable.*/
+let submitGuessDiv = $('submitGuessDiv');
+let submitGuessButton = document.createElement("button");
+submitGuessButton.setAttribute("class", "inputSend");
+submitGuessButton.setAttribute("id", "submitgæt");
+submitGuessButton.setAttribute("name", "gæt");
+submitGuessButton.innerHTML = "Gæt Tal";
 let randomNumberHolder = 0;
 let isWinner = "false";
 let done = "false";
@@ -39,7 +44,11 @@ class GuessNumberGame{
     
   /* newGame starts a game and sets the player */
     newGame(){
-        clearInterval(time);
+        /*if there is no submit button. */
+        if (submitGuessDiv.firstChild !== 0) {
+            submitGuessDiv.appendChild(submitGuessButton);   
+        }
+    clearInterval(time);
     person = [];
     let result = $('resultInput');
     let playersName = $('playerName');
@@ -79,7 +88,7 @@ class GuessNumberGame{
     person.push(this.Person);
     console.log(person);
     playersName.innerHTML = "" + person[0].name;
-
+   /*creating second player if howMany is equals 2.*/
     if (howMany === 2) {
         do{
             var playerNameSecond = String(prompt('Second players Name'));
@@ -98,34 +107,7 @@ class GuessNumberGame{
 }
 
 
-timer(){
 
-    time = setInterval(function(){ 
-        timePlayed.innerHTML = a + hours + ":" + b + min + ":" + c + sec;
-         sec++
-         if(sec === 10){
-             c = "";
-         }
-         if(min === 10){
-            b = "";
-        }
-        if(hours === 10){
-            a = "";
-        }
-    
-         if(sec === 59){
-             sec = 0;
-             c = "0";
-             min++;
-         }
-         if(min === 59){
-             min = 0;
-             b = "0";
-             hours++;
-         }
-    
-    }, 1000);
-}
 /* checkwinner checks how many players there are and who wins */
 checkWinner(){
     console.log(isWinner);
@@ -135,6 +117,11 @@ checkWinner(){
     let timePlayed = $('timePlayed');
     clearInterval(time);    
     sec--
+    /* sets zero in front of 9 in array */
+    if (sec === 9) {
+        c = "0";
+        
+    }
     /* sets player time used in a round. */
     if (person[0].done === "true" && person[0].timeUsed === 0) 
     {
@@ -171,20 +158,11 @@ if (person.length > 1) {
 }else if (person[0].isWinner === "true" && person.length === 1) {
       /* display winner if there is only one player*/
       window.alert(person[0].name + " vinder spillet med tiden: " + person[0].timeUsed);
-      if (confirm('Vil du spille et nyt spil?')) {
-        this.newGame();
-      } else {
-        
-        /*button should be removed */
-      }
+      this.confirmNewGame();
 }else{
     window.alert("Computeren vinder!");
-    if (confirm('Vil du spille et nyt spil?')) {
-        this.newGame();
-      } else {
-        
-        /*button should be removed */
-      }
+    this.confirmNewGame();
+    
 }
 
 
@@ -197,81 +175,45 @@ if (person[0].done === "true" && person[1].done === "true") {
     if (person[0].isWinner === "true" && person[1].isWinner === "false") {
         /*first wins*/
         window.alert(person[0].name + " vinder spillet med tiden: " + person[0].timeUsed);
-        if (confirm('Vil du spille et nyt spil?')) {
-            this.newGame();
-          } else {
-            
-            /*button should be removed */
-          }
+        this.confirmNewGame();
     }else if (person[1].isWinner === "true" && person[0].isWinner === "false") {
          /*second wins*/
          window.alert(person[1].name + " vinder spillet med tiden: " + person[1].timeUsed);
-         if (confirm('Vil du spille et nyt spil?')) {
-            this.newGame();
-          } else {
-            
-            /*button should be removed */
-          }
+         this.confirmNewGame();
     }
     /* checks if both gussses right. Then it checks who did less træk */ 
     if (person[0].isWinner === "true" && person[1].isWinner === "true") {
         if (person[0].sumValues > person[1].sumValues) {
             /* first one wins*/
             window.alert(person[0].name + " vinder spillet med tiden: " + person[0].timeUsed);
-            if (confirm('Vil du spille et nyt spil?')) {
-                this.newGame();
-              } else {
-                
-                /*button should be removed */
-              }
+            this.confirmNewGame();
         }else if (person[0].sumValues < person[1].sumValues) {
              /* second one wins*/
              window.alert(person[1].name + " vinder spillet med tiden: " + person[1].timeUsed);
-             if (confirm('Vil du spille et nyt spil?')) {
-                this.newGame();
-              } else {
-                
-                /*button should be removed */
-              }
+             this.confirmNewGame();
         }
         
     }
-
-    
 
    /* checks if both used the same træk and guesses. Winner is beeing tracked by time used.*/ 
     if (person[0].sumValues === person[1].sumValues && person[0].isWinner === "true" && person[1].isWinner === "true") {
         /* cheks if both træk and time is the same*/
         if (person[0].timeUsed === person[1].timeUsed) {
             window.alert("Uafgjort!");
+            this.confirmNewGame();
         }else if (person[0].timeUsed < person[1].timeUsed) {
             window.alert(person[0].name + " vinder spillet med tiden: " + person[0].timeUsed);
-            if (confirm('Vil du spille et nyt spil?')) {
-                this.newGame();
-              } else {
-                
-                /*button should be removed */
-              }
+            this.confirmNewGame();
         }else{
             window.alert(person[1].name + " vinder spillet med tiden med tiden: " + person[1].timeUsed);
-            if (confirm('Vil du spille et nyt spil?')) {
-                this.newGame();
-              } else {
-                
-                /*button should be removed */
-              }
+            this.confirmNewGame();
         }
         
     }
     /* if no one wins the computer wins!*/
     if (person[0].sumValues === 0 && person[1].sumValues === 0) {
         window.alert("Computeren vinder!");
-        if (confirm('Vil du spille et nyt spil?')) {
-            this.newGame();
-          } else {
-            
-            /*button should be removed */
-          }   
+        this.confirmNewGame();
     }
     }
    
@@ -286,20 +228,16 @@ if (person[0].done === "true" && person[1].done === "true") {
         let result = $('resultInput');
         /* display the score */
         let scoreValue = $('scoreValue');
-    
+        /*checking if first player is done otherwise second players turn. */
         if(person[0].done === "false"){
             randomNumberHolder = person[0].randomNumber;
             person[0].sumValues = sumvalues;
-            // isWinner = person[0].isWinner;
-            // person[0].done = done;
             console.log(person[0]);
             console.log("player one in action");
 
         }else{
             randomNumberHolder = person[1].randomNumber;
             person[1].sumValues = sumvalues;
-            // person[1].isWinner = isWinner;  
-            // person[1].done = done;
             console.log(person[1]);
             console.log("player second in action");
 
@@ -315,7 +253,6 @@ if (person[0].done === "true" && person[1].done === "true") {
               person[0].sumValues -= 1;  
               person[0].isWinner = "true";  
               person[0].done = "true";  
-              // done = "true";
         }else{ 
                 person[1].isWinner = "true";  
                 person[1].done = "true";  
@@ -359,20 +296,68 @@ if (person[0].done === "true" && person[1].done === "true") {
 generateRandomNumber(){
     return Math.floor(Math.random() * 1000 + 1);  
 }
+timer(){
+
+    time = setInterval(function(){ 
+        timePlayed.innerHTML = a + hours + ":" + b + min + ":" + c + sec;
+         sec++
+         if(sec === 10){
+             c = "";
+         }
+         if(min === 10){
+            b = "";
+        }
+        if(hours === 10){
+            a = "";
+        }
+    
+         if(sec === 59){
+             sec = 0;
+             c = "0";
+             min++;
+         }
+         if(min === 59){
+             min = 0;
+             b = "0";
+             hours++;
+         }
+    
+    }, 1000);
+}
+confirmNewGame(){
+    if (confirm('Vil du spille et nyt spil?')) {
+        this.newGame();
+      } else {
+                /*button should be removed */
+        submitGuessDiv.removeChild(submitGuessButton);
+  
+      }
+}
 }
 
 /* connection from button to GuessNumberGame */
 function doSomething () {
     let buttonFormNewGame = $("newGame");
-    let buttonFormSubmit = $("submitgæt");
+    const container = document.querySelector('#submitGuessDiv');
     let b = new GuessNumberGame();
     buttonFormNewGame.addEventListener('click', function(event){
         event.preventDefault()
         b.newGame();
       });
-      buttonFormSubmit.addEventListener('click', function(event){
-        event.preventDefault()
-        b.checkValue();
+      container.addEventListener('click', function (event) {
+        // But only alert for elements that have an alert-button class
+        if (event.target.classList.contains('inputSend')) {
+            event.preventDefault()
+            b.checkValue();
+        }
       });
+   
 }
+
 window.addEventListener('load', doSomething);
+
+
+
+
+
+
