@@ -159,6 +159,8 @@ if (person.length > 1) {
       /* display winner if there is only one player*/
       window.alert(person[0].name + " vinder spillet med tiden: " + person[0].timeUsed);
       this.confirmNewGame();
+      localStorage.setItem(person[0].name,person[0].randomNumber, person[0].sumValues,person[0].timeUsed,person[0].isWinner,person[0].done);
+
 }else{
     window.alert("Computeren vinder!");
     this.confirmNewGame();
