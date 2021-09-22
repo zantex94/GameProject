@@ -24,13 +24,13 @@ l5.appendChild(a5);
 l1.setAttribute("class", "navigationList");
 a1.setAttribute("class", "navigationText");
 a1.setAttribute("href", "barrøv.html");
-a1.innerHTML = "Bare røv";
+a1.innerHTML = "Barroev";
 l1.appendChild(a1);
 
 l2.setAttribute("class", "navigationList");
 a2.setAttribute("class", "navigationText");
 a2.setAttribute("href", "gættal.html");
-a2.innerHTML = "gættal";
+a2.innerHTML = "goettal";
 l2.appendChild(a2);
 
 l3.setAttribute("class", "navigationList");

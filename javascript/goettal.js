@@ -355,9 +355,3 @@ function doSomething () {
 }
 
 window.addEventListener('load', doSomething);
-
-
-
-
-
-
