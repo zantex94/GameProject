@@ -159,11 +159,12 @@ if (person.length > 1) {
       /* display winner if there is only one player*/
       window.alert(person[0].name + " vinder spillet med tiden: " + person[0].timeUsed);
       this.confirmNewGame();
-      localStorage.setItem(person[0].name,person[0].randomNumber, person[0].sumValues,person[0].timeUsed,person[0].isWinner,person[0].done);
+      localStorage.setItem("player",JSON.stringify(person[0]));
 
 }else{
     window.alert("Computeren vinder!");
     this.confirmNewGame();
+    localStorage.setItem("player",JSON.stringify(person[0]));
     
 }
 
@@ -178,10 +179,12 @@ if (person[0].done === "true" && person[1].done === "true") {
         /*first wins*/
         window.alert(person[0].name + " vinder spillet med tiden: " + person[0].timeUsed);
         this.confirmNewGame();
+        localStorage.setItem("player",JSON.stringify(person[0]));
     }else if (person[1].isWinner === "true" && person[0].isWinner === "false") {
          /*second wins*/
          window.alert(person[1].name + " vinder spillet med tiden: " + person[1].timeUsed);
          this.confirmNewGame();
+         localStorage.setItem("player",JSON.stringify(person[1]));
     }
     /* checks if both gussses right. Then it checks who did less træk */ 
     if (person[0].isWinner === "true" && person[1].isWinner === "true") {
@@ -189,10 +192,12 @@ if (person[0].done === "true" && person[1].done === "true") {
             /* first one wins*/
             window.alert(person[0].name + " vinder spillet med tiden: " + person[0].timeUsed);
             this.confirmNewGame();
+            localStorage.setItem("player",JSON.stringify(person[0]));
         }else if (person[0].sumValues < person[1].sumValues) {
              /* second one wins*/
              window.alert(person[1].name + " vinder spillet med tiden: " + person[1].timeUsed);
              this.confirmNewGame();
+             localStorage.setItem("player",JSON.stringify(person[1]));
         }
         
     }
@@ -203,12 +208,16 @@ if (person[0].done === "true" && person[1].done === "true") {
         if (person[0].timeUsed === person[1].timeUsed) {
             window.alert("Uafgjort!");
             this.confirmNewGame();
+            localStorage.setItem("player",JSON.stringify(person[0]));
+            localStorage.setItem("player",JSON.stringify(person[1]));
         }else if (person[0].timeUsed < person[1].timeUsed) {
             window.alert(person[0].name + " vinder spillet med tiden: " + person[0].timeUsed);
             this.confirmNewGame();
+            localStorage.setItem("player",JSON.stringify(person[0]));
         }else{
             window.alert(person[1].name + " vinder spillet med tiden med tiden: " + person[1].timeUsed);
             this.confirmNewGame();
+            localStorage.setItem("player",JSON.stringify(person[1]));
         }
         
     }
@@ -216,6 +225,8 @@ if (person[0].done === "true" && person[1].done === "true") {
     if (person[0].sumValues === 0 && person[1].sumValues === 0) {
         window.alert("Computeren vinder!");
         this.confirmNewGame();
+        localStorage.setItem("player",JSON.stringify(person[0]));
+        localStorage.setItem("player",JSON.stringify(person[1]));
     }
     }
    
