@@ -8,8 +8,6 @@ submitGuessButton.setAttribute("id", "submitgæt");
 submitGuessButton.setAttribute("name", "gæt");
 submitGuessButton.innerHTML = "Gæt Tal";
 let randomNumberHolder = 0;
-let isWinner = "false";
-let done = "false";
 let sumvalues = 10;
 let person = [];
 let time = 0;
@@ -46,7 +44,6 @@ class GuessNumberGame{
      a = "0";
      b = "0";
      c = "0";
-    done = "false";
     sumvalues = 10;
     /* first player */
         do{
@@ -57,7 +54,7 @@ class GuessNumberGame{
     var playerName = String(prompt('Players Name'));
    }while(playerName === "null" || playerName === "")
    /*use the player class to construct a player */
-   let person1 = new Player(playerName,this.generateRandomNumber(),10,0,"false","false");
+   let person1 = new Player(playerName,this.generateRandomNumber(),10,0,false,false);
        /* pushing first player to person arrary*/
     person.push(person1);
     scoreValue.innerHTML = person[0].sumValues;
@@ -68,7 +65,7 @@ class GuessNumberGame{
             var playerNameSecond = String(prompt('Second players Name'));
         }while(playerNameSecond === "null" || playerNameSecond === "")
            /*use the player class to construct a player */
-        let person2 = new Player(playerNameSecond,this.generateRandomNumber(),10,0,"false","false");
+        let person2 = new Player(playerNameSecond,this.generateRandomNumber(),10,0,false,false);
             /* pushing second player to person arrary*/
             person.push(person2);
         }
@@ -82,15 +79,16 @@ class GuessNumberGame{
 checkWinner(){
     let result = $('resultInput');
     let timePlayed = $('timePlayed');
+    /* stop the timer */
     clearInterval(time);    
     sec--
-    /* sets zero in front of 9 in array */
+    /* sets zero in front of 9 so that it display 09 in arrays, otherwise it would be just 9 */
     if (sec === 9) {
         c = "0";
         
     }
     /* sets player time used in a round. */
-    if (person[0].done === "true" && person[0].timeUsed === 0) 
+    if (person[0].done === true && person[0].timeUsed === 0) 
     {
         person[0].timeUsed =  a + hours + ":" + b + min + ":" + c + sec;
         console.log("first finisher");
@@ -105,7 +103,7 @@ checkWinner(){
 
     /* check if there is a second player*/
 if (person.length > 1) {
-    if (person[1].done === "false") {
+    if (person[1].done === false) {
         window.alert(person[1].name + " tur!");
         playerName.innerHTML = person[1].name;
         scoreValue.innerHTML = person[1].sumValues;
@@ -122,7 +120,7 @@ if (person.length > 1) {
     }
 
 /*check winner of game by træk and time. if only one player display winner*/
-}else if (person[0].isWinner === "true" && person.length === 1) {
+}else if (person[0].guessright === true && person.length === 1) {
       /* display winner if there is only one player*/
       window.alert(person[0].name + " vinder spillet med tiden: " + person[0].timeUsed);
       this.confirmNewGame();
@@ -140,21 +138,21 @@ if (person.length > 1) {
 /* checks the winner of both players*/
 if (person.length === 2) { 
 
-if (person[0].done === "true" && person[1].done === "true") {
+if (person[0].done === true && person[1].done === true) {
     /* checks if one of the two players guesses right*/
-    if (person[0].isWinner === "true" && person[1].isWinner === "false") {
+    if (person[0].guessright === true && person[1].guessright === false) {
         /*first wins*/
         window.alert(person[0].name + " vinder spillet med tiden: " + person[0].timeUsed);
         this.confirmNewGame();
         localStorage.setItem("player",JSON.stringify(person[0]));
-    }else if (person[1].isWinner === "true" && person[0].isWinner === "false") {
+    }else if (person[1].guessright === true && person[0].guessright === false) {
          /*second wins*/
          window.alert(person[1].name + " vinder spillet med tiden: " + person[1].timeUsed);
          this.confirmNewGame();
          localStorage.setItem("player",JSON.stringify(person[1]));
     }
     /* checks if both gussses right. Then it checks who did less træk */ 
-    if (person[0].isWinner === "true" && person[1].isWinner === "true") {
+    if (person[0].guessright === true && person[1].guessright === true) {
         if (person[0].sumValues > person[1].sumValues) {
             /* first one wins*/
             window.alert(person[0].name + " vinder spillet med tiden: " + person[0].timeUsed);
@@ -170,7 +168,7 @@ if (person[0].done === "true" && person[1].done === "true") {
     }
 
    /* checks if both used the same træk and guesses. Winner is beeing tracked by time used.*/ 
-    if (person[0].sumValues === person[1].sumValues && person[0].isWinner === "true" && person[1].isWinner === "true") {
+    if (person[0].sumValues === person[1].sumValues && person[0].guessright === true && person[1].guessright === true) {
         /* cheks if both træk and time is the same*/
         if (person[0].timeUsed === person[1].timeUsed) {
             window.alert("Uafgjort!");
@@ -209,7 +207,7 @@ if (person[0].done === "true" && person[1].done === "true") {
         /* display the score */
         let scoreValue = $('scoreValue');
         /*checking if first player is done otherwise second players turn. */
-        if(person[0].done === "false"){
+        if(person[0].done === false){
             randomNumberHolder = person[0].randomNumber;
             person[0].sumValues = sumvalues;
             console.log(person[0]);
@@ -227,14 +225,12 @@ if (person[0].done === "true" && person[1].done === "true") {
         /* there is a winner*/
         result.innerHTML = "Tillykke du gættede rigtigt ";
         scoreValue.innerHTML = " " + sumvalues;
-        if (person[0].done === "false") {
-              person[0].sumValues -= 1;  
-              person[0].isWinner = "true";  
-              person[0].done = "true";  
+        if (person[0].done === false) {
+              person[0].guessright = true;  
+              person[0].done = true;  
         }else{ 
-                person[1].isWinner = "true";  
-                person[1].done = "true";  
-                person[1].sumValues -= 1;  
+                person[1].guessright = true;  
+                person[1].done = true;  
         }
           
         this.checkWinner();
@@ -257,12 +253,12 @@ if (person[0].done === "true" && person[1].done === "true") {
     if(sumvalues === 0){
         result.innerHTML = "Game over! Det rigtige resultat er:  " + randomNumberHolder;
         scoreValue.innerHTML = "" + sumvalues;
-        if (person[0].done === "false") {
-            person[0].done = "true";
+        if (person[0].done === false) {
+            person[0].done = true;
             person[0].sumValues -= 1;  
       }else{
 
-            person[1].done = "true";  
+            person[1].done = true;  
             person[1].sumValues -= 1;  
 
       }
