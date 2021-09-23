@@ -17,7 +17,7 @@ if (isLocalStorageEnabled()) {
 if (isLocalStorageEnabled()) {
     let foo = localStorage.getItem('foo');
     foo = JSON.parse(foo);
-    console.log(`foo.name = ${foo.name}\nfoo.randomNumber = ${foo.randomNumber}\nfoo.sumValues = ${foo.sumValues}\nfoo.timeUsed = ${foo.timeUsed}\nfoo.isWinner = ${foo.isWinner}\nfoo.done = ${foo.isWinner}`);
+    // console.log(`foo.name = ${foo.name}\nfoo.randomNumber = ${foo.randomNumber}\nfoo.sumValues = ${foo.sumValues}\nfoo.timeUsed = ${foo.timeUsed}\nfoo.isWinner = ${foo.isWinner}\nfoo.done = ${foo.isWinner}`);
 } else {
     console.log('You must allow local storage in your browser');
 }
