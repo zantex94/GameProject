@@ -1,6 +1,6 @@
 
 'use strict'
-/* Keeps all global variable.*/
+/* global variable.*/
 let submitGuessDiv = $('submitGuessDiv');
 let submitGuessButton = document.createElement("button");
 submitGuessButton.setAttribute("class", "inputSend");
@@ -22,27 +22,8 @@ let c = "0";
 
   /**************Guess number game**************************/
 class GuessNumberGame{
-
-    /* objects store two players*/
-    Person = {
-        name: "",
-        randomNumber: 0,
-        sumValues: 0,
-        timeUsed: 0,
-        isWinner: "false",
-        done: "false"
-    };
-
-    Person2 = {
-        name: "",
-        randomNumber: 0,
-        sumValues: 0,
-        timeUsed: 0,
-        isWinner: "false",
-        done: "false"
-    };
     
-  /* newGame starts a game and sets the player */
+  /******************* newGame starts a game and sets the player **************************************/
     newGame(){
         /*if there is no submit button. */
         if (submitGuessDiv.firstChild !== 0) {
@@ -67,40 +48,29 @@ class GuessNumberGame{
      c = "0";
     done = "false";
     sumvalues = 10;
-    let player1 = this.Person;
-    let player2 = this.Person2;
     /* first player */
         do{
             var howMany = Number(prompt('How many players?', 'max 2'));
-        }while(howMany > 2 || howMany < 1)
+        }while(howMany > 2 || howMany < 1 || !/^[0-9]+$/.test(howMany))
     /* second player */
    do{
     var playerName = String(prompt('Players Name'));
    }while(playerName === "null" || playerName === "")
-   
-    player1.name = playerName;
-    player1.randomNumber = this.generateRandomNumber();
-    player1.sumValues = 10;
-    player1.done = "false";
-    player1.timeUsed = 0;
-    scoreValue.innerHTML = player1.sumValues;
-    /* pushing object to person arrary*/
-    person.push(this.Person);
-    console.log(person);
+   /*use the player class to construct a player */
+   let person1 = new Player(playerName,this.generateRandomNumber(),10,0,"false","false");
+       /* pushing first player to person arrary*/
+    person.push(person1);
+    scoreValue.innerHTML = person[0].sumValues;
     playersName.innerHTML = "" + person[0].name;
    /*creating second player if howMany is equals 2.*/
     if (howMany === 2) {
         do{
             var playerNameSecond = String(prompt('Second players Name'));
         }while(playerNameSecond === "null" || playerNameSecond === "")
-       
-        player2.name = playerNameSecond;
-        player2.randomNumber = this.generateRandomNumber();
-        player2.sumValues = 10;
-        player2.done = "false";
-        player2.timeUsed = 0;
-            /* pushing second object to person arrary*/
-        person.push(this.Person2);
+           /*use the player class to construct a player */
+        let person2 = new Player(playerNameSecond,this.generateRandomNumber(),10,0,"false","false");
+            /* pushing second player to person arrary*/
+            person.push(person2);
         }
         this.timer();
    
@@ -108,11 +78,8 @@ class GuessNumberGame{
 
 
 
-/* checkwinner checks how many players there are and who wins */
+/*************************checkwinner checks how many players there are and who wins ***********************************/ 
 checkWinner(){
-    console.log(isWinner);
-    console.log(person[0]);
-    console.log("check done " + person[0].isWinner);
     let result = $('resultInput');
     let timePlayed = $('timePlayed');
     clearInterval(time);    
@@ -246,13 +213,11 @@ if (person[0].done === "true" && person[1].done === "true") {
             randomNumberHolder = person[0].randomNumber;
             person[0].sumValues = sumvalues;
             console.log(person[0]);
-            console.log("player one in action");
 
         }else{
             randomNumberHolder = person[1].randomNumber;
             person[1].sumValues = sumvalues;
             console.log(person[1]);
-            console.log("player second in action");
 
         }
     
@@ -349,7 +314,7 @@ confirmNewGame(){
 }
 
 /* connection from button to GuessNumberGame */
-function doSomething () {
+function doEvent () {
     let buttonFormNewGame = $("newGame");
     const container = document.querySelector('#submitGuessDiv');
     let b = new GuessNumberGame();
@@ -358,7 +323,6 @@ function doSomething () {
         b.newGame();
       });
       container.addEventListener('click', function (event) {
-        // But only alert for elements that have an alert-button class
         if (event.target.classList.contains('inputSend')) {
             event.preventDefault()
             b.checkValue();
@@ -367,4 +331,4 @@ function doSomething () {
    
 }
 
-window.addEventListener('load', doSomething);
+window.addEventListener('load', doEvent);
