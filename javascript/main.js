@@ -23,7 +23,7 @@ l5.appendChild(a5);
 
 l1.setAttribute("class", "navigationList");
 a1.setAttribute("class", "navigationText");
-a1.setAttribute("href", "barreov.html");
+a1.setAttribute("href", "barroev.html");
 a1.innerHTML = "Barroev";
 
 
