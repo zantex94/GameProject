@@ -4,7 +4,7 @@ let board           = document.createElement('section');
 let diceContainer   = document.createElement('div');
 let playerContainer = document.createElement('div');
 let playerScore     = document.createElement('div');
-let rollBtn           = document.createElement('button');
+
 //let scoreboard      = document.createElement('div');
 /**********************************/
 
@@ -32,10 +32,10 @@ rollBtn.innerHTML = 'Roll dice';
 function createBoard(){
     // appendings 
     page.appendChild(board);
-    board.append(diceContainer, playerContainer); 
+    board.append(diceContainer,  rollBtn, playerContainer); 
     createPlayers();
     createDices();
-    diceContainer.append(rollBtn);
+    //diceContainer.append(rollBtn);
 }
 /**********************************/
 
@@ -79,14 +79,14 @@ function createPlayers(){
 /******* CREATE DICE FUNCTION *********/
 // draw and add dice to game
 function createDices(){
-    let dices       = gameSettings.dices;
+    //let dices       = gameSettings.dices;
     
     // add dice equal to number of dice saved in game settings
-    for(let i = 0; i < dices; i++){
-        let dice    = document.createElement('div');
-        dice.setAttribute('class', 'dice');
-        dice.innerHTML = '2';   
-        diceContainer.append(dice);    
+    for(let i = 0; i < dice.length; i++){
+        let dices    = document.createElement('div');
+        dices.setAttribute('class', 'dice');
+        dices.innerHTML = dice[i].value;
+        diceContainer.append(dices);    
     }
 }
 /**********************************/

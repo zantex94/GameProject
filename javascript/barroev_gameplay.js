@@ -5,9 +5,10 @@
 
 // Variables
 const dice              = [];
-const rollDiceButton    = document.getElementById('rollDice');
+//const rollDiceButton    = document.getElementById('rollDice');
 let score               = 0;
 let roll                = [];
+let rollBtn           = document.createElement('button');
 
 
 
@@ -55,16 +56,21 @@ function rollDice() {
 
     // Empty past roll saved values
     roll = [];
+    diceContainer.innerHTML = '';
 
     // Roll the dice
     for (let die of dice) {
-        die.roll();        
+        die.roll();
     }
     
     // Save each rolled die value
     for (let i = 0; i < dice.length; i++) {
         console.log(`Dice ${i + 1}: ${dice[i].value}`);
         roll.push(dice[i].value);
+        let dices    = document.createElement('div');
+        dices.setAttribute('class', 'dice');
+        dices.innerHTML = dice[i].value;
+        diceContainer.append(dices);
     }
 
     // Check if the roll contained 2's or 5's
@@ -86,5 +92,4 @@ function rollDice() {
 
 
 
-
-rollDiceButton.addEventListener('click', rollDice);
+rollBtn.addEventListener('click', rollDice);
