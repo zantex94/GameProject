@@ -1,6 +1,6 @@
 'use strict'
 
-class Player{
+export class Player{
     /**construct a player */
     constructor(name, randomNumber, sumValues, timeUsed, guessright, done){
         this.name = name;

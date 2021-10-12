@@ -1,7 +1,10 @@
-
+// import {$, generateNumber} from './module.js';
+import * as moduleFunctions from './module.js';
+import {Player} from './player.js';
+// https://javascript.info/import-export
 'use strict'
 /* global variable.*/
-let submitGuessDiv = $('submitGuessDiv');
+let submitGuessDiv = moduleFunctions.$('submitGuessDiv');
 let submitGuessButton = document.createElement("button");
 submitGuessButton.setAttribute("class", "inputSend");
 submitGuessButton.setAttribute("id", "submitgæt");
@@ -29,10 +32,10 @@ class GuessNumberGame{
         }
     clearInterval(time);
     person = [];
-    let result = $('resultInput');
-    let playersName = $('playerName');
-    let timePlayed = $('timePlayed');
-    let scoreValue = $('scoreValue');
+    let result = moduleFunctions.$('resultInput');
+    let playersName = moduleFunctions.$('playerName');
+    let timePlayed = moduleFunctions.$('timePlayed');
+    let scoreValue = moduleFunctions.$('scoreValue');
     result.innerHTML = "";
     playersName.innerHTML = "";
     timePlayed.innerHTML = "";
@@ -48,13 +51,14 @@ class GuessNumberGame{
     /* first player */
         do{
             var howMany = Number(prompt('How many players?', 'max 2'));
-        }while(howMany > 2 || howMany < 1 || !/^[0-9]+$/.test(howMany))
+        }while(howMany > 2 || howMany < 1 || !/^[0-9]+$/.test(howMany));
     /* second player */
    do{
     var playerName = String(prompt('Players Name'));
    }while(playerName === "null" || playerName === "")
    /*use the player class to construct a player */
-   let person1 = new Player(playerName,this.generateRandomNumber(),10,0,false,false);
+   let person1 = new Player(playerName,moduleFunctions.generateRandomNumber(),10,0,false,false);
+   console.log(person1);
        /* pushing first player to person arrary*/
     person.push(person1);
     scoreValue.innerHTML = person[0].sumValues;
@@ -65,11 +69,12 @@ class GuessNumberGame{
             var playerNameSecond = String(prompt('Second players Name'));
         }while(playerNameSecond === "null" || playerNameSecond === "")
            /*use the player class to construct a player */
-        let person2 = new Player(playerNameSecond,this.generateRandomNumber(),10,0,false,false);
+        let person2 = new Player(playerNameSecond,moduleFunctions.generateRandomNumber(),10,0,false,false);
             /* pushing second player to person arrary*/
             person.push(person2);
         }
         this.timer();
+       
    
 }
 
@@ -77,8 +82,8 @@ class GuessNumberGame{
 
 /*************************checkwinner checks how many players there are and who wins ***********************************/ 
 checkWinner(){
-    let result = $('resultInput');
-    let timePlayed = $('timePlayed');
+    let result = moduleFunctions.$('resultInput');
+    let timePlayed = moduleFunctions.$('timePlayed');
     /* stop the timer */
     clearInterval(time);    
     sec--
@@ -201,11 +206,11 @@ if (person[0].done === true && person[1].done === true) {
 
 /* a function that checks the value of a player */
     checkValue(){
-        let userValue = $('inputNumber').value -0;
+        let userValue = moduleFunctions.$('inputNumber').value -0;
         /* display the result */
-        let result = $('resultInput');
+        let result = moduleFunctions.$('resultInput');
         /* display the score */
-        let scoreValue = $('scoreValue');
+        let scoreValue = moduleFunctions.$('scoreValue');
         /*checking if first player is done otherwise second players turn. */
         if(person[0].done === false){
             randomNumberHolder = person[0].randomNumber;
@@ -237,6 +242,7 @@ if (person[0].done === true && person[1].done === true) {
 
     }else if (userValue < randomNumberHolder){
         /* the value is higher than the genereated number */
+        result.innerHTML = "";
         result.innerHTML = "Tallet er højre ";
         sumvalues--;
         scoreValue.innerHTML = "" + sumvalues;
@@ -244,6 +250,7 @@ if (person[0].done === true && person[1].done === true) {
 
     }else{
         /* the value is less than the genereated number */
+        result.innerHTML = "";
         result.innerHTML = "Tallet er lavere ";
         sumvalues--;
         scoreValue.innerHTML = "" + sumvalues;
@@ -262,42 +269,40 @@ if (person[0].done === true && person[1].done === true) {
             person[1].sumValues -= 1;  
 
       }
-      window.alert("Game over! Det rigtige resultat er: " + randomNumberHolder)
+      window.alert("Game over! Det rigtige resultat er: " + randomNumberHolder);
         this.checkWinner();
     }
 
 }
-generateRandomNumber(){
-    return Math.floor(Math.random() * 1000 + 1);  
-}
-timer(){
 
-    time = setInterval(function(){ 
-        timePlayed.innerHTML = a + hours + ":" + b + min + ":" + c + sec;
-         sec++
-         if(sec === 10){
-             c = "";
-         }
-         if(min === 10){
-            b = "";
-        }
-        if(hours === 10){
-            a = "";
-        }
+// timer(){
+
+//     time = setInterval(function(){ 
+//         timePlayed.innerHTML = a + hours + ":" + b + min + ":" + c + sec;
+//          sec++
+//          if(sec === 10){
+//              c = "";
+//          }
+//          if(min === 10){
+//             b = "";
+//         }
+//         if(hours === 10){
+//             a = "";
+//         }
     
-         if(sec === 59){
-             sec = 0;
-             c = "0";
-             min++;
-         }
-         if(min === 59){
-             min = 0;
-             b = "0";
-             hours++;
-         }
+//          if(sec === 59){
+//              sec = 0;
+//              c = "0";
+//              min++;
+//          }
+//          if(min === 59){
+//              min = 0;
+//              b = "0";
+//              hours++;
+//          }
     
-    }, 1000);
-}
+//     }, 1000);
+// }
 confirmNewGame(){
     if (confirm('Vil du spille et nyt spil?')) {
         this.newGame();
@@ -310,21 +315,29 @@ confirmNewGame(){
 }
 
 /* connection from button to GuessNumberGame */
-function doEvent () {
-    let buttonFormNewGame = $("newGame");
+export function doEvent () {
     const container = document.querySelector('#submitGuessDiv');
+    const container2 = document.querySelector('#inputNumber');
+    let buttonFormNewGame = moduleFunctions.$("newGame");
     let b = new GuessNumberGame();
-    buttonFormNewGame.addEventListener('click', function(event){
-        event.preventDefault()
-        b.newGame();
-      });
-      container.addEventListener('click', function (event) {
+    container.addEventListener('click', function (event) {
         if (event.target.classList.contains('inputSend')) {
-            event.preventDefault()
+            event.preventDefault();
+            container2.focus();
             b.checkValue();
         }
       });
+      container2.addEventListener('keydown', function (ev) {
+        if (ev.keyCode === 13) {
+            // moduleFunctions.$('submitgæt').click();
+            b.checkValue();
+        }     
+    });
+
+    buttonFormNewGame.addEventListener('click', function(event){
+        event.preventDefault();
+        container2.focus();
+        b.newGame();
+      });
    
 }
-
-window.addEventListener('load', doEvent);
