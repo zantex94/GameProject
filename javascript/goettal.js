@@ -1,28 +1,39 @@
-// import {$, generateNumber} from './module.js';
 import * as moduleFunctions from './module.js';
 import {Player} from './player.js';
 // https://javascript.info/import-export
 'use strict'
 /* global variable.*/
+let inputSubmitguess = moduleFunctions.$('inputGuessDiv');
+let inputSubmit = document.createElement("input");
 let submitGuessDiv = moduleFunctions.$('submitGuessDiv');
 let submitGuessButton = document.createElement("button");
 submitGuessButton.setAttribute("class", "inputSend");
 submitGuessButton.setAttribute("id", "submitgæt");
 submitGuessButton.setAttribute("name", "gæt");
 submitGuessButton.innerHTML = "Gæt Tal";
+inputSubmit.setAttribute("type", "number");
+inputSubmit.setAttribute("id", "inputNumber");
+inputSubmit.setAttribute("name", "number");
+inputSubmit.setAttribute("placeholder", "Mellem 1 - 1000");
+inputSubmit.setAttribute("pattern", "!/^[0-9]+$/");
+inputSubmit.setAttribute("title", "only from 1-1000");
+
+let timePlayed = moduleFunctions.$('timePlayed');
+
 let randomNumberHolder = 0;
 let sumvalues = 10;
 let person = [];
 let time = 0;
+let sec = 0;
+let min = 0;
 let hours = 0;
-let min =  0;
-let sec =  0;
 let a = "0";
 let b = "0";
 let c = "0";
 
+
   /**************Guess number game**************************/
-class GuessNumberGame{
+ class GuessNumberGame{
     
   /******************* newGame starts a game and sets the player **************************************/
     newGame(){
@@ -30,8 +41,13 @@ class GuessNumberGame{
         if (submitGuessDiv.firstChild !== 0) {
             submitGuessDiv.appendChild(submitGuessButton);   
         }
+         /*if there is no input field. */
+         if (inputSubmitguess.firstChild !== 0) {
+            inputSubmitguess.appendChild(inputSubmit);   
+        }
     clearInterval(time);
     person = [];
+    inputSubmit.focus();
     let result = moduleFunctions.$('resultInput');
     let playersName = moduleFunctions.$('playerName');
     let timePlayed = moduleFunctions.$('timePlayed');
@@ -44,9 +60,9 @@ class GuessNumberGame{
     sec = 0;
     min = 0;
     hours = 0;
-     a = "0";
-     b = "0";
-     c = "0";
+    a = "0";
+    b = "0";
+    c = "0";
     sumvalues = 10;
     /* first player */
         do{
@@ -86,7 +102,7 @@ checkWinner(){
     let timePlayed = moduleFunctions.$('timePlayed');
     /* stop the timer */
     clearInterval(time);    
-    sec--
+    sec -= 1;
     /* sets zero in front of 9 so that it display 09 in arrays, otherwise it would be just 9 */
     if (sec === 9) {
         c = "0";
@@ -121,7 +137,7 @@ if (person.length > 1) {
         hours = 0;
         sumvalues = 10;
         timePlayed.innerHTML = "";
-        this.timer();
+        timer();
     }
 
 /*check winner of game by træk and time. if only one player display winner*/
@@ -207,6 +223,7 @@ if (person[0].done === true && person[1].done === true) {
 /* a function that checks the value of a player */
     checkValue(){
         let userValue = moduleFunctions.$('inputNumber').value -0;
+        inputSubmit.focus();
         /* display the result */
         let result = moduleFunctions.$('resultInput');
         /* display the score */
@@ -275,34 +292,34 @@ if (person[0].done === true && person[1].done === true) {
 
 }
 
-// timer(){
+timer(){
 
-//     time = setInterval(function(){ 
-//         timePlayed.innerHTML = a + hours + ":" + b + min + ":" + c + sec;
-//          sec++
-//          if(sec === 10){
-//              c = "";
-//          }
-//          if(min === 10){
-//             b = "";
-//         }
-//         if(hours === 10){
-//             a = "";
-//         }
+    time = setInterval(function(){ 
+        timePlayed.innerHTML = a + hours + ":" + b + min + ":" + c + sec;
+         sec++
+         if(sec === 10){
+             c = "";
+         }
+         if(min === 10){
+            b = "";
+        }
+        if(hours === 10){
+            a = "";
+        }
     
-//          if(sec === 59){
-//              sec = 0;
-//              c = "0";
-//              min++;
-//          }
-//          if(min === 59){
-//              min = 0;
-//              b = "0";
-//              hours++;
-//          }
+         if(sec === 59){
+             sec = 0;
+             c = "0";
+             min++;
+         }
+         if(min === 59){
+             min = 0;
+             b = "0";
+             hours++;
+         }
     
-//     }, 1000);
-// }
+    }, 1000);
+}
 confirmNewGame(){
     if (confirm('Vil du spille et nyt spil?')) {
         this.newGame();
@@ -314,6 +331,7 @@ confirmNewGame(){
 }
 }
 
+
 /* connection from button to GuessNumberGame */
 export function doEvent () {
     const container = document.querySelector('#submitGuessDiv');
@@ -323,21 +341,14 @@ export function doEvent () {
     container.addEventListener('click', function (event) {
         if (event.target.classList.contains('inputSend')) {
             event.preventDefault();
-            container2.focus();
             b.checkValue();
         }
       });
-      container2.addEventListener('keydown', function (ev) {
-        if (ev.keyCode === 13) {
-            // moduleFunctions.$('submitgæt').click();
-            b.checkValue();
-        }     
-    });
 
     buttonFormNewGame.addEventListener('click', function(event){
         event.preventDefault();
-        container2.focus();
         b.newGame();
       });
    
 }
+
